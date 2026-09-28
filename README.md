@@ -1,4 +1,4 @@
-# Neural Surface Potential for Potential Flows
+# Neural Surface Potentials for Fast Flow Approximation
 
 <p align="center">
   <a href="https://marcelpadilla.com/Neural_Surface_Potential/">
@@ -6,7 +6,7 @@
   </a>
 </p>
 
-Supplementary material for the preprint **Neural Surface Potential for Potential Flows**. NSP is a feed-forward network that predicts the six Kirchhoff surface potentials of exterior potential flow from a closed triangle mesh, without per-mesh precomputation.
+Supplementary material for the preprint **Neural Surface Potentials for Fast Flow Approximation**. NSP is a feed-forward network that predicts the six Kirchhoff surface potentials of exterior potential flow from a closed triangle mesh, without per-mesh precomputation.
 
 The network runs live in the browser on a body that bends:
 
