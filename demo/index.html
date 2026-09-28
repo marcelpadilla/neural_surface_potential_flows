@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neural Surface Potential for Potential Flows, live demo</title>
+<link rel="icon" href="data:,">
+<!-- Cross-origin isolation for multi-threaded WASM when this page is opened on
+     its own from a host that sends no COOP/COEP headers (GitHub Pages); see
+     coi-serviceworker.js. serve.py sends the headers itself. -->
+<script src="coi-serviceworker.js"></script>
+<style>
+  :root { --accent: #930000; --ink: #1b1b1b; --muted: #6b6b6b; }
+  * { box-sizing: border-box; }
+  /* One window: the controls, the body, the colour bar. Nothing scrolls. */
+  html, body { height: 100%; margin: 0; }
+  body {
+    display: flex; flex-direction: column; background: #fff; color: var(--ink);
+    font: 14px/1.4 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 10px 12px; }
+  .bodies { display: flex; gap: 6px; margin-right: 6px; }
+  button {
+    font: inherit; padding: 5px 14px; border-radius: 4px; cursor: pointer;
+    border: 1px solid var(--accent); background: #fff; color: var(--accent);
+  }
+  button:hover:not(:disabled), button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+  button:disabled { cursor: default; opacity: 0.45; }
+  .time { margin-left: auto; color: var(--muted); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+  /* full screen on the project page: its close button sits in the top right corner */
+  .fullscreen .controls { padding-right: 60px; }
+  .stage { position: relative; flex: 1 1 auto; min-height: 0; }
+  #view { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+  #status {
+    position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 10px; color: var(--muted); pointer-events: none;
+  }
+  #status[hidden] { display: none; }
+  .prog { width: 190px; height: 3px; border-radius: 2px; background: rgba(0,0,0,0.10); overflow: hidden; }
+  .prog i { display: block; height: 100%; width: 0%; background: var(--accent); transition: width 0.25s ease; }
+  .legend {
+    display: flex; align-items: center; justify-content: center; gap: 8px; padding: 4px 12px 10px;
+    color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums;
+  }
+  .legend .bar { width: 120px; height: 9px; border-radius: 2px; border: 1px solid rgba(0,0,0,0.14); }
+  @media (pointer: coarse) { button { min-height: 40px; } }
+</style>
+</head>
+<body>
+  <div class="controls">
+    <div class="bodies" role="group" aria-label="Body">
+      <button data-body="bunny" aria-pressed="true" disabled>Bunny</button>
+      <button data-body="spot" aria-pressed="false" disabled>Spot</button>
+      <button data-body="armadillo" aria-pressed="false" disabled>Armadillo</button>
+    </div>
+    <button id="play" disabled>Pause</button>
+    <span class="time" id="time"></span>
+  </div>
+  <div class="stage">
+    <canvas id="view" role="img" aria-label="The potential the network predicts on the bending body"></canvas>
+    <div id="status">
+      <span id="statusText">loading…</span>
+      <span class="prog"><i id="progBar"></i></span>
+    </div>
+  </div>
+  <div class="legend">
+    <span>&phi;<sub>x</sub>, predicted</span>
+    <span id="lo">&minus;</span><span class="bar" id="bar"></span><span id="hi">+</span>
+  </div>
+
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.min.js" } }
+</script>
+<script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "run": "euler_tier_omega_train_x_b20_wu80_ac_ns",
+  "checkpoint": "checkpoint_best_ema.pt",
+  "model": "pointnet2",
+  "width": 64,
+  "sa_nsamples": "32,64,160",
+  "n_params": 1124161,
+  "n_points": "any",
+  "dynamic_shapes": true,
+  "sa_radii": [0.2, 0.4, 0.8],
+  "sa_nsample": [32, 64, 160],
+  "mode": "phi_x",
+  "onnx_nodes": 856,
+  "onnx_mb": 4.574,
+  "opset": 17
+}
